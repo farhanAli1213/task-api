@@ -23,9 +23,7 @@ const transactionSchema = new mongoose.Schema(
     amount: Number,
     transactionId: String,
   },
-  {
-    timestamps: true,
-  }
+  {timestamps: true}
 );
 
 transactionSchema.pre(/^find/, async function (next) {

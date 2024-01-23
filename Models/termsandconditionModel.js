@@ -3,14 +3,9 @@ const mongoose = require("mongoose");
 const termsandconditionSchema = mongoose.Schema(
   {
     data: String,
-    creator: {
-      type: mongoose.Schema.ObjectId,
-      ref: "User",
-    },
+    creator: { type: mongoose.Schema.ObjectId, ref: "User" },
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
 // termsandconditionSchema.pre(/^find/, function (next) {
@@ -21,9 +16,5 @@ const termsandconditionSchema = mongoose.Schema(
 //   next();
 // });
 
-const TermsandCondition = mongoose.model(
-  "TermsandCondition",
-  termsandconditionSchema
-);
-
+const TermsandCondition = mongoose.model("TermsandCondition", termsandconditionSchema);
 module.exports = TermsandCondition;

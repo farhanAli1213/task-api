@@ -16,6 +16,7 @@ router.post("/sendOTP", authController.sendOTP);
 router.post("/refresh/:token", authController.refresh);
 router.post("/testLogin", authController.testLogin);
 router.get("/categories", userController.getCategories);
+router.get("/getData", authController.getData);
 
 router.post("/forgotPassword", authController.forgotPassword);
 router.patch("/resetPassword", authController.resetPassword);

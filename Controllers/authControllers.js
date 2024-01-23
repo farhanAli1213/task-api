@@ -429,7 +429,7 @@ exports.testLogin = catchAsync(async (req, res, next) => {
   // check if user exist and password is correct
   const user = await User.findOne({ email }).select("+password");
   console.log(user);
- 
+
   if (!user || !(await user.correctPassword(password, user.password))) {
     return res.status(400).send({
       message: "Incorrect email or password",
@@ -657,7 +657,7 @@ exports.verifyOtpForResetPassword = catchAsync(async (req, res, next) => {
     });
   }
 
- return res.status(200).json({
+  return res.status(200).json({
     status: 200,
     success: true,
     message: "OTP verified"
@@ -751,3 +751,30 @@ cron.schedule("0 */5 * * * *", async () => {
     console.log(e);
   }
 });
+
+
+
+exports.getData = catchAsync(async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 10;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    let response = await fetch('https://jsonplaceholder.typicode.com/comments');
+    let data = await response.json();
+    const paginatedData = data.slice(startIndex, endIndex);
+
+    res.status(200).json({
+      status: 'success',
+      records: paginatedData.length,
+      page: page,
+      limit: limit,
+      totalPages: Math.ceil(data.length / limit),
+      data: { paginatedData }
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
